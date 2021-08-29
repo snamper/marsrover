@@ -1,0 +1,271 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Swagger MarsRovers",
+        "description": "Hepsiburada case study",
+        "contact": {
+            "email": "yaseminhocaoglu@gmail.com"
+        },
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/v1/plateau/add": {
+            "post": {
+                "tags": [
+                    "plateau"
+                ],
+                "description": "Add new plateau",
+                "operationId": "addAction",
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/Plateaus"
+                },
+                "responses": {
+                    "422": {
+                        "description": "Unprocessable entity"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
+        "/v1/plateau/{plateauId}": {
+            "get": {
+                "tags": [
+                    "plateau"
+                ],
+                "summary": "Find plateau by id",
+                "description": "returns one plateu",
+                "operationId": "getPlateauAction",
+                "parameters": [
+                    {
+                        "name": "plateauId",
+                        "in": "path",
+                        "description": "Id of plateau to return",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Plateaus"
+                                }
+                            },
+                            "application/xml": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Plateaus"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/v1/rover/add": {
+            "post": {
+                "tags": [
+                    "rover"
+                ],
+                "description": "Add new rover",
+                "operationId": "addAction",
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/Rovers"
+                },
+                "responses": {
+                    "422": {
+                        "description": "Unprocessable entity"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                }
+            }
+        },
+        "/v1/rover/sendcommand/{roverId}": {
+            "put": {
+                "summary": "Changes the location of the rover",
+                "description": "Location is updated according to sent command",
+                "operationId": "sendCommandAction",
+                "parameters": [
+                    {
+                        "name": "roverId",
+                        "in": "path",
+                        "description": "Id of rover",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "command which sent to rover",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {}
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Rovers"
+                                }
+                            },
+                            "application/xml": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Rovers"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable entity"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        },
+        "/v1/rover/{roverId}": {
+            "get": {
+                "tags": [
+                    "rover"
+                ],
+                "summary": "Find rover by id",
+                "description": "returns one rover",
+                "operationId": "getRoverAction",
+                "parameters": [
+                    {
+                        "name": "roverId",
+                        "in": "path",
+                        "description": "Id of rover to return",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Plateaus"
+                                }
+                            },
+                            "application/xml": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Plateaus"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Plateaus": {
+                "title": "Plateaus",
+                "properties": {
+                    "id": {
+                        "title": "Id",
+                        "description": "Id",
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "name": {
+                        "title": "Plateau name",
+                        "description": "Plateau name",
+                        "type": "string"
+                    },
+                    "upperLength": {
+                        "title": "Plateau upper length",
+                        "description": "Plateau upper length",
+                        "type": "integer"
+                    },
+                    "rightLength": {
+                        "title": "Plateau right length",
+                        "description": "Plateau right length",
+                        "type": "integer"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Plateaus"
+                }
+            },
+            "Rovers": {
+                "title": "Rovers",
+                "properties": {
+                    "id": {
+                        "title": "Id",
+                        "description": "Id",
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "name": {
+                        "title": "Rover name",
+                        "description": "Rover name",
+                        "type": "string"
+                    },
+                    "plateauId": {
+                        "title": "Rover plateau id",
+                        "description": "Rover plateau id",
+                        "type": "integer"
+                    },
+                    "xCoor": {
+                        "title": "Rover x coordinate",
+                        "description": "Rover x coordinate",
+                        "type": "integer"
+                    },
+                    "yCoor": {
+                        "title": "Rover y coordinate",
+                        "description": "Rover y coordinate",
+                        "type": "integer"
+                    },
+                    "facing": {
+                        "title": "Rover facing",
+                        "description": "Rover facing",
+                        "type": "integer"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Rovers"
+                }
+            }
+        }
+    }
+}
